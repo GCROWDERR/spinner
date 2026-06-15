@@ -3,6 +3,7 @@
   <g transform="translate(12 12) scale(1.75) translate(-12 -12)">
   <g>
     <animateTransform
+      id="spin-animation"
       attributeName="transform"
       attributeType="XML"
       type="rotate"
@@ -88,10 +89,20 @@
       });
     }
 
-    if (document.readyState === "complete") {
-      startSpinnerAnimations();
-    } else {
-      addEventListener("load", startSpinnerAnimations);
+    function isEmbedded() {
+      try {
+        return window.parent && window.parent !== window;
+      } catch (error) {
+        return true;
+      }
+    }
+
+    if (!isEmbedded()) {
+      if (document.readyState === "complete") {
+        startSpinnerAnimations();
+      } else {
+        addEventListener("load", startSpinnerAnimations);
+      }
     }
   ]]></script>
 </svg>

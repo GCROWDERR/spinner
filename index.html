@@ -22,9 +22,15 @@
 <body>
   <object id="spinner" type="image/svg+xml" data="/Favicon.svg" width="256" height="256" aria-label="Animated spinner"></object>
   <script>
+    let started = false;
+
     function startSpinnerAnimations() {
+      if (started) return;
+
       const svg = document.getElementById("spinner").contentDocument;
       if (!svg) return;
+
+      started = true;
 
       svg.querySelectorAll("animateTransform").forEach(function (animation) {
         try {
@@ -33,7 +39,13 @@
       });
     }
 
-    document.getElementById("spinner").addEventListener("load", startSpinnerAnimations);
+    function tryStartSpinnerAnimations() {
+      if (document.readyState !== "complete") return;
+      startSpinnerAnimations();
+    }
+
+    document.getElementById("spinner").addEventListener("load", tryStartSpinnerAnimations);
+    window.addEventListener("load", tryStartSpinnerAnimations);
   </script>
 </body>
 </html>
