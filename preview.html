@@ -19,6 +19,20 @@
   </style>
 </head>
 <body>
-  <object type="image/svg+xml" data="Favicon.svg" width="256" height="256"></object>
+  <object id="spinner" type="image/svg+xml" data="Favicon.svg" width="256" height="256"></object>
+  <script>
+    function startSpinnerAnimations() {
+      const svg = document.getElementById("spinner").contentDocument;
+      if (!svg) return;
+
+      svg.querySelectorAll("animateTransform").forEach(function (animation) {
+        try {
+          animation.beginElement();
+        } catch (error) {}
+      });
+    }
+
+    document.getElementById("spinner").addEventListener("load", startSpinnerAnimations);
+  </script>
 </body>
 </html>
